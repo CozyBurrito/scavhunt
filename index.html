@@ -1,0 +1,348 @@
+<!-- https://codepen.io/bobbidigi34/pen/rWzZgQ -->
+
+<!DOCTYPE html>
+
+<head>
+	<style>
+		html{
+			height: 100%;
+			background: radial-gradient(circle, #fff, #ccc);
+			-moz-background: radial-gradient(circle, #fff, #ccc);
+			-webkit-background: radial-gradient(circle, #fff, #ccc);
+		}
+		#container{
+			Height: 400px;
+			width: 550px;
+			background-color: #9DD2EA;
+			margin: 100px auto;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0px 4px 0px 0px #009de4; 
+			-webkit-box-shadow: 0px 4px 0px 0px #009de4; 
+			-moz-box-shadow: 0px 4px 0px 0px #009de4; 
+		/*[horizontal offset, vertical offset, blur radius, spead]*/
+			position: relative;
+		}
+
+		#score {
+			background-color: #f1ff92;
+			color: #888e5f;
+			padding: 11px;
+			position: absolute;
+			left: 500px;
+			box-shadow: 0px 4px #9da853;
+			-webkit-box-shadow: 0px 4px #9da853;
+			-moz-box-shadow: 0px 4px #9da853;
+		}
+
+		#correct {
+			position: absolute;
+			left: 260px;
+			background-color: #42e252;
+			color: white;
+			padding: 11px;
+			display: none;	
+		}
+		#wrong {
+			position: absolute;
+			left: 250px;
+			background-color: #de401a;
+			color: white;
+			padding: 11px;
+			display: none;
+		}
+
+		#question{
+			width: 450px;
+			height: 150px;
+			margin: 50px auto 10px auto;
+			background-color: #9da0ea;
+			box-shadow: 0px 4px #535aa8;
+			-webkit-box-shadow: 0px 4px #535aa8;
+			-moz-box-shadow: 0px 4px #535aa8;
+			font-size: 100px;
+			text-align: center;
+			font-family: cursive, sans-serif;
+			color:black;		
+		}
+		#instruction {
+			width: 450px;
+			height: 50px;
+			background-color: #b481d9;
+			margin: 10px auto;
+			text-align: center;
+			line-height: 45px;
+			box-shadow: 0px 4px #815386;
+			-moz-box-shadow: 0px 4px #815386;
+			-webkit-box-shadow: 0px 4px #815386;
+		}
+		#choices {
+			width: 450px;
+			height: 100px;
+			margin: 5px auto;
+		}
+		.box {
+			margin-right: 36px;
+			width: 85px;
+			height: 85px;
+			background-color: white;
+			float: left;
+			border-radius: 3px;	
+			cursor: pointer;
+			box-shadow: 0px 4px rgba(0,0,0, 0.2);
+			-moz-box-shadow: 0px 4px rgba(0,0,0, 0.2);
+			-webkit-box-shadow: 0px 4px rgba(0,0,0, 0.2);
+			text-align: center;
+			line-height: 80px;
+			position: relative;
+			transition: all 0.2s;
+			-webkit-transition: all 0.2s;
+			-moz-transition: all 0.2s;
+		}	
+		.box:hover, #startreset:hoover{
+			background-color: #9C89f6;
+			color: white;
+			box-shadow: 0px 4px #6b54d3;
+			-webkit-box-shadow: 0px 4px #6b54d3;
+			-moz-box-shadow: 0px 4px #6b54d3;
+		}
+		.box:active, #startreset:active{
+			box-shadow: 0px 0px #6b54d3;
+			-moz-box-shadow: 0px 0px #6b54d3;
+			-webkit-box-shadow: 0px 0px #6b54d3;
+			top: 4px;
+		}
+
+		#box4{
+			margin-right: 0;
+		}
+		#startreset {
+			width: 78px;
+			padding: 10px;
+			background-color: rgba(255,255,255,0.5);
+			margin: 0 auto;
+			border-radius: 3px;	
+			cursor: pointer;
+			box-shadow: 0px 4px rgba(0,0,0, 0.2);
+			-moz-box-shadow: 0px 4px rgba(0,0,0, 0.2);
+			-webkit-box-shadow: 0px 4px rgba(0,0,0, 0.2);
+			text-align: center;
+			position: relative;
+			transition: all 0.2s;
+			-webkit-transition: all 0.2s;
+			-moz-transition: all 0.2s;
+		}
+
+		#timeremaining {
+			color: white;
+			width: 152px;
+			padding: 10px;
+			position: absolute;
+			top: 395px;
+			left: 400px;
+			background-color: rgba( 94, 223, 87, 0.693 );
+			border-radius: 5px;
+			box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+			-webkit-box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+			-moz-box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+		/*	visibility: hidden;*/
+			display: none;
+		}
+		#timeremainingvalue {
+		/*	font-family: fantasy;*/
+		/*	font-weight: 500;*/
+		/*	font-size: 17px;*/
+		}
+		#gameOver {
+			height: 200px;
+			width: 500px;
+			background: linear-gradient(#e8f64a, #F3CA6B, #F3706C);
+			-moz-background: linear-gradient(#e8f64a, #F3CA6B, #F3706C);
+			-webkit-background: linear-gradient(#e8f64a, #F3CA6B, #F3706C);
+			color: white;
+			font-size: 2.3em;
+			text-align: center;
+			text-transform: uppercase;
+			position: absolute;
+			top: 100px;
+			left: 45px;
+			z-index: 2;
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		<div id="score">
+			score: <span id="scorevalue" style="font-weight: 900">0</span>
+		</div>
+		<div id="correct">
+			Correct!
+		</div>
+		<div id="wrong">
+			Try again!
+		</div>
+		<div id="question">
+			
+		</div>
+		<div id="instruction">
+			Click on the correct answer.
+		</div>
+		<div id="choices">
+			
+			<div id="box1" class="box"> </div>
+			<div id="box2" class="box">	</div>
+			<div id="box3" class="box">	</div>
+			<div id="box4" class="box">	</div>	
+		</div>
+		<div id="startreset">
+			Start Game
+		</div>
+		<div id="timeremaining">
+			Time remaining:   <span id="timeremainingvalue" style="font-family: sans seriff; font-weight: bold; font-size 32px; color: black;">  60</span>
+		</div>
+		<div id="gameOver">
+			
+		</div>
+	</div>
+	
+	
+	<script>
+		var playing = false;
+		var score;
+		var action;
+		var timeremaining;
+		var correctAnswer;
+
+		document.getElementById("startreset").onclick = function () {
+		  if (playing == true) {
+			location.reload();
+		  } else {
+			playing = true;
+			score = 0;
+
+			show("timeremaining");
+			timeremaining = 22;
+
+			document.getElementById("timeremainingvalue").innerHTML = timeremaining;
+
+			hide("gameOver");
+
+			document.getElementById("startreset").innerHTML = "Reset Game";
+
+			startCountdown();
+
+			generateQA();
+		  }
+		};
+
+		for (i = 1; i < 5; i++) {
+		  document.getElementById("box" + i).onclick = function () {
+			if (playing == true) {
+			  if (this.innerHTML == correctAnswer) {
+				//increase score
+				score++;
+				document.getElementById("scorevalue").innerHTML = score;
+				hide("wrong");
+				show("correct");
+				setTimeout(function () {
+				  hide("correct");
+				}, 1000);
+				generateQA();
+			  } else {
+				//wrong answer
+				hide("correct");
+				show("wrong");
+			  }
+			}
+		  };
+		}
+
+		function startCountdown() {
+		  action = setInterval(function () {
+			timeremaining -= 1;
+
+			document.getElementById("timeremainingvalue").innerHTML = timeremaining;
+			if (timeremaining == 0 || document.getElementById("wrong").style.display == "block") {
+			  stopCountdown();
+			  show("gameOver");
+
+			  document.getElementById("gameOver").innerHTML =
+				"<p>Game over!</p><p>Your score is " + score + ".</p>";
+			  hide("timeremaining");
+			  hide("correct");
+			  hide("wrong");
+			  playing = false;
+
+			  document.getElementById("startreset").innerHTML = "Start Game";
+			}
+			
+			
+			if (document.getElementById("scorevalue").innerHTML == 1) {
+				stopCountdown();
+				show("gameOver");
+				
+				const a = '10110110110101';
+				var num = parseInt(a, 2);
+				num = ((num << 5) | (num >> 3)) & 0xFAFD;
+				num = num ^ 0xBABA;
+				num = num | 0x1225;
+				num = num * '14' - '5895'; 
+				var b = Math.abs(num % 10000); 
+
+				document.getElementById("gameOver").innerHTML =
+				"<p>Congratulations!</p><p>Code: " + (b << 3) % 10000 + "</p>";
+				hide("timeremaining");
+				hide("correct");
+				hide("wrong");
+				playing = false;
+
+				document.getElementById("startreset").innerHTML = "Start Game";
+			  
+			};
+		  }, 700);
+		}
+
+		function stopCountdown() {
+		  clearInterval(action);
+		}
+
+		function hide(Id) {
+		  document.getElementById(Id).style.display = "none";
+		}
+		function show(Id) {
+		  document.getElementById(Id).style.display = "block";
+		}
+		function generateQA() {
+		  var x = 1 + Math.round(99 * Math.random());
+		  var y = 1 + Math.round(99 * Math.random());
+		  correctAnswer = x * y;
+
+		  document.getElementById("question").innerHTML = x + "x" + y;
+		  var correctPosition = 1 + Math.round(3 * Math.random());
+
+		  document.getElementById("box" + correctPosition).innerHTML = correctAnswer; //correct answer
+		  var answers = [correctAnswer];
+
+		  for (i = 1; i < 5; i++) {
+			if (i != correctPosition) {
+			  var wrongAnswer;
+			  do {
+				wrongAnswer =
+				  (1 + Math.round(99 * Math.random())) *
+				  (1 + Math.round(99 * Math.random()));
+			  } while (answers.indexOf(wrongAnswer) > -1);
+
+			  document.getElementById("box" + i).innerHTML = wrongAnswer;
+			  answers.push(wrongAnswer);
+			}
+		  }
+		}
+
+	</script>
+
+	
+</body>
+
+</html>
